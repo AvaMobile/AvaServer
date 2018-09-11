@@ -13,7 +13,7 @@ import java.util.List;
 
 public class HTTPRequest {
     public void postRequest() throws Exception {
-        String url = "https://sandbox-rest.avatax.com/api/v2/transactions/create"
+        String url = "https://sandbox-rest.avatax.com/api/v2/transactions/create";
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
 
@@ -26,11 +26,11 @@ public class HTTPRequest {
         urlParameters.add(new BasicNameValuePair("date", "2018-9-10"));
         urlParameters.add(new BasicNameValuePair("customerCode", "EXAMPLECUSTOMER"));
 
-        AvaTaxClient ATC = new AvaTaxClient();
+//        AvaTaxClient ATC = new AvaTaxClient();
 
-        CreateTransactionModel model = new CreateTransactionModel();
+//        CreateTransactionModel model = new CreateTransactionModel();
 
-        ATC.createTransaction("include", model);
+//        ATC.createTransaction("include", model);
 
 
 
