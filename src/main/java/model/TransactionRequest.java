@@ -1,5 +1,6 @@
 package model;
 
+import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,9 +17,26 @@ public class TransactionRequest {
     public String purchaseOrderNo;
     public List<String> addresses;
     public List<String> singleLocation;
-    public String commit;
+    public boolean commit;
     public String currencyCode;
     public String description;
+
+    TransactionRequest (String type, String companyCode, List<String> lines, String date, String customerCode, String
+            purchaseOrderNo, List<String> addresses, List<String> singleLocation, Boolean commit, String
+            currencyCode, String description) {
+        this.type = type;
+        this.companyCode = companyCode;
+        this.lines = lines;
+        this.date = date;
+        this.customerCode = customerCode;
+        this.purchaseOrderNo = purchaseOrderNo;
+        this.addresses = addresses;
+        this.singleLocation = singleLocation;
+        this.commit = commit;
+        this.currencyCode = currencyCode;
+        this.description = description;
+    }
+
 
     public static void main(String[] args) throws JSONException {
         String message;
@@ -51,6 +69,8 @@ public class TransactionRequest {
         json.put("description", "yarn");
         message = json.toString();
         System.out.println(message);
+
+        TransactionRequest tr = new TransactionRequest()
     }
 
 
