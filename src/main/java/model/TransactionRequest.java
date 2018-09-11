@@ -1,87 +1,74 @@
 package model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TransactionRequest {
     public String type;
     public String companyCode;
-    public List<String> lines;
     public String date;
     public String customerCode;
     public String purchaseOrderNo;
-    public List<String> addresses;
-    public List<String> singleLocation;
-    public String commit;
+    public Boolean commit;
     public String currencyCode;
-    public String description;
+    public ArrayList<Map<String, Object>> lines;
+    public HashMap<String, HashMap> addresses;
 
-    public static void main(String[] args) throws JSONException {
-        String message;
-        JSONObject json = new JSONObject();
-        JSONObject lineFill = new JSONObject();
-        lineFill.put("number", "1");
-        lineFill.put("quantity", 1);
-        lineFill.put("amount", 100);
-        lineFill.put("taxCode", "PS081282");
-        lineFill.put("itemCode", "Y0001");
-        lineFill.put("description", "yarn");
+    public static void main(String[] args) {
+        TransactionRequest test = new TransactionRequest("SalesInvoice","DEFAULT","1",1,100,"PS081282","Y0001",
+                "2018-08-03","ABC",
+                "2018-8-03-001",true,"USD","yarn","2000 Main Street", "Irvine", "CA", "US", "92614");
+        String str1 = null;
+        try {
+            str1 = new ObjectMapper().writeValueAsString(test);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(str1);
 
-        json.put("lines", lineFill);
-        json.put("type", "SalesOrder");
-        json.put("companyCode", "DEFAULT");
-        json.put("date", "2018-08-03");
-        json.put("customerCode", "ABC");
-        json.put("purchaseOrderNo", "2018-08-03-001");
-        JSONObject singleLocationArr = new JSONObject();
-        singleLocationArr.put("line1", "2000 Main Street");
-        singleLocationArr.put("city", "Irvine");
-        singleLocationArr.put("region", "CA");
-        singleLocationArr.put("country", "US");
-        singleLocationArr.put("postalCode", "92614");
-        JSONObject addressesFill = new JSONObject();
-        addressesFill.put("singleLocation", singleLocationArr);
-        json.put("adresses", addressesFill);
-        json.put("commit", true);
-        json.put("currencyCode", "USD");
-        json.put("description", "yarn");
-        message = json.toString();
-        System.out.println(message);
+
     }
 
+    TransactionRequest(String type, String companyCode, String number, int quantity, int amount, String taxCode, String itemCode,
+      String date, String customerCode, String purchaseOrderNo, Boolean commit, String currencyCode, String description, String address, String city, String region, String country, String postalCode) {
+        this.type = type;
+        this.companyCode = companyCode;
+        this.date = date;
+        this.customerCode = customerCode;
+        this.purchaseOrderNo = purchaseOrderNo;
+        this.commit = commit;
+        this.currencyCode = currencyCode;
 
+        HashMap<String, Object> linesmap = new HashMap<String, Object>();
+        linesmap.put("number", number);
+        linesmap.put("quantity", quantity);
+        linesmap.put("amount", amount);
+        linesmap.put("taxCode", taxCode);
+        linesmap.put("itemCode", itemCode);
+        linesmap.put("description", description);
+        this.lines = new ArrayList<Map<String, Object>>();
+        this.lines.add(linesmap);
+
+        HashMap<String, String> addymap = new HashMap<>();
+        addymap.put("line1", address);
+        addymap.put("city", city);
+        addymap.put("region", region);
+        addymap.put("country", country);
+        addymap.put("postalCode", postalCode);
+
+        HashMap<String, HashMap> singleLocation = new HashMap<>();
+        singleLocation.put("singleLocation", addymap);
+
+        this.addresses = new HashMap<String, HashMap>();
+        this.addresses = singleLocation;
+    }
 }
-
-//{
-//        "lines": [
-//        {
-//        "number": "1",
-//        "quantity": 1,
-//        "amount": 100,
-//        "taxCode": "PS081282",
-//        "itemCode": "Y0001",
-//        "description": "Yarn"
-//        }
-//        ],
-//        "type": "SalesOrder",
-//        "companyCode": "DEFAULT",
-//        "date": "2018-08-03",
-//        "customerCode": "ABC",
-//        "purchaseOrderNo": "2018-08-03-001",
-//        "addresses": {
-//        "singleLocation": {
-//        "line1": "2000 Main Street",
-//        "city": "Irvine",
-//        "region": "CA",
-//        "country": "US",
-//        "postalCode": "92614"
-//        }
-//        },
-//        "commit": true,
-//        "currencyCode": "USD",
-//        "description": "Yarn"
-//        }
