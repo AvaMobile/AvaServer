@@ -60,7 +60,4 @@ public class Application {
         }
         return client.toString();
     }
-
-
-
 }
