@@ -95,10 +95,10 @@ public class CreateTransaction {
             }
             System.out.println(builder);
             System.out.println(Parser.parseJSON(builder));
-            double parsed =  Parser.parseJSON(builder);
+            String parsed =  Parser.parseJSON(builder);
             System.out.println(parsed);
-            Double.toString(parsed);
-            builder = Double.toString(parsed);
+            String taxable = Parser.parseJSONForTaxability(builder);
+            builder = taxable + "!!" + parsed;
             return builder;
         } catch (ClientProtocolException e) {
 
