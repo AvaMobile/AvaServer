@@ -31,33 +31,7 @@ import java.util.Date;
 
 @Controller
 public class CreateTransaction {
-    //    @GetMapping("/create/transaction")
-//    @ResponseBody
-//    public String authPage() {
-//        AvaTaxClient client = new AvaTaxClient("Test", "1.0", "localhost", AvaTaxEnvironment.Production)
-//                .withSecurity("timbuschofficial@gmail.com", "CodeFellows18"); //replace with your username and password
-//
-//        try {
-//            PingResultModel ping = client.ping();
-//            if (ping.getAuthenticated()) {
-//                System.out.print("Successfully created a client!");
-//            }
-//        } catch (Exception e) {
-//
-//        }
-//
-//        try {
-//            TransactionModel transaction = new TransactionBuilder(client, "DEFAULT", DocumentType.SalesOrder, "ABC")
-//                    .withAddress(TransactionAddressType.SingleLocation, "4126 3rd NW", null, null, "Seattle", "WA",
-//                            "98107", "US")
-//                    .withLine(new BigDecimal(100.0), new BigDecimal(1), "PH404450")
-//                    .Create();
-//        } catch (Exception e) {
-//        }
-//        String response = null;
-//        return response;
-//    }
-    @GetMapping("/createtransaction")
+    @GetMapping("/create")
     @ResponseBody
     public String queryByTaxCode() {
         //need to pass taxCode and address as argument.
@@ -106,7 +80,7 @@ public class CreateTransaction {
             HttpResponse response = client.execute(httpPost);
 
             if (response.getStatusLine().getStatusCode() != 201 && (response.getStatusLine().getStatusCode() != 200)) {
-                throw new RuntimeException("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
+                throw new RuntimeException("HTTP code : " + response.getStatusLine().getStatusCode());
             }
 
 
@@ -120,6 +94,8 @@ public class CreateTransaction {
             System.out.println(Parser.parseJSON(builder));
             double parsed =  Parser.parseJSON(builder);
             System.out.println(parsed);
+            Double.toString(parsed);
+            builder = Double.toString(parsed);
             return builder;
         } catch (ClientProtocolException e) {
 
