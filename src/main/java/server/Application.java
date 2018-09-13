@@ -1,5 +1,6 @@
 package server;
 
+import model.JSONTaxCode;
 import net.avalara.avatax.rest.client.AvaTaxClient;
 import net.avalara.avatax.rest.client.TransactionBuilder;
 import net.avalara.avatax.rest.client.enums.AvaTaxEnvironment;
@@ -52,7 +53,7 @@ public class Application {
         }
 
         try {
-            TransactionModel transaction = new TransactionBuilder(client, "DEFAULT", DocumentType.SalesInvoice, "ABC")
+            TransactionModel transaction = new TransactionBuilder(client, "DEFAULT", DocumentType.SalesOrder, "ABC")
                     .withAddress(TransactionAddressType.SingleLocation, "123 Main Street", null, null, "Irvine", "CA", "92615", "US")
                     .withLine(new BigDecimal(100.0), new BigDecimal(1), "P0000000")
                     .Create();
@@ -60,4 +61,6 @@ public class Application {
         }
         return client.toString();
     }
+
+
 }

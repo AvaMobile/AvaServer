@@ -1,7 +1,5 @@
 package server;
 
-import model.ItemSearchModel;
-import net.avalara.avatax.rest.client.models.ItemModel;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -9,10 +7,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import parser.Parser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -22,23 +22,25 @@ import java.util.Base64;
 @Controller
 //            https://hc.apache.org/httpcomponents-client-ga/quickstart.html reference guide
 //How do we handle these passwords
-public class ItemSearch {
-    @GetMapping("/search/item")
-    public String searchItem() {
-        ItemSearchModel itemSearch = new ItemSearchModel("ceramic");
-        ItemModel itemModel = new ItemModel();
-        itemModel.
+public class TaxCodeSearch {
+    @GetMapping("/search/taxcode")
+    @ResponseBody
+    public String searchTaxCode() {
+//        ItemSearchModel itemSearch = new ItemSearchModel("ceramic");
+//        ItemModel itemModel = new ItemModel();
+        //Avalara item model oh my god.
         String builder = null;
         try {
             String userNamePass = Base64.getEncoder().encodeToString(("timbuschofficial@gmail.com:CodeFellows18")
                     .getBytes());
 //            https://rest.avatax.com/api/v2/items?%24filter=description%20contains%20ceramic
-            String requestURL = "https://rest.avatax.com/api/v2/items?%24filter=" + URLEncoder.encode(itemSearch
-                    .getDescription(), "UTF-8");
+//            String requestURL = "https://rest.avatax.com/api/v2/items?%24filter=" + URLEncoder.encode(itemSearch
+//                    .getDescription(), "UTF-8");
+            String requestUrl = "https://rest.avatax.com/api/v2/definitions/taxcodes";
 
 
             CloseableHttpClient client = HttpClients.createDefault();
-            HttpGet requestBuilder = new HttpGet(requestURL);
+            HttpGet requestBuilder = new HttpGet(requestUrl);
             requestBuilder.addHeader("accept", "application/json");
             requestBuilder.addHeader("authorization", "Basic " + userNamePass);
 
@@ -55,13 +57,12 @@ public class ItemSearch {
             while ((reader = bufferedReader.readLine()) != null) {
                 String[] outputArray = reader.split("[^a-zA-Z0-9.\\s]");
                 System.out.println("Output " + Arrays.deepToString(outputArray));
-
-                if (reader.contains("ceramic")) {
-                    System.out.println("Output only = " + reader);
-                }
                 builder = reader;
             }
-
+            System.out.println(Parser.parse(builder));
+            String parsed =  Parser.parse(builder);
+            String[] length = parsed.split(",");
+            System.out.println(length.length);
             return builder;
         } catch (ClientProtocolException e) {
 
@@ -71,8 +72,10 @@ public class ItemSearch {
 
             e.printStackTrace();
         }
+        builder = Parser.parse(builder);
+        System.out.println(builder);
         return builder;
-        //honest thought this might return the full object
     }
+
 
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class AvaTaxApiCall {
 
     private String type;
-    private Value value;
 
     public AvaTaxApiCall() {
 
@@ -20,15 +19,11 @@ public class AvaTaxApiCall {
         this.type = type;
     }
 
-    public void setValue (Value value) {
-        this.value = value;
-    }
 
     @Override
     public String toString() {
         return "Quote{" +
                 "type='" + type + '\'' +
-                ", value=" + value +
                 '}';
     }
 }

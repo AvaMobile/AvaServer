@@ -1,5 +1,6 @@
 package server;
 
+import model.JSONTaxCode;
 import net.avalara.avatax.rest.client.AvaTaxClient;
 import net.avalara.avatax.rest.client.models.CreateTransactionModel;
 import org.apache.http.NameValuePair;
@@ -19,6 +20,7 @@ public class HTTPRequest {
 
 //        post.setHeader("User-Agent", USER_AGENT);
 
+
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("companyCode", "DEVGUIDE"));
         urlParameters.add(new BasicNameValuePair("code", "1001"));
@@ -31,9 +33,6 @@ public class HTTPRequest {
 //        CreateTransactionModel model = new CreateTransactionModel();
 
 //        ATC.createTransaction("include", model);
-
-
-
 
 
     }
