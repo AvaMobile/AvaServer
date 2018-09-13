@@ -24,17 +24,29 @@ public class Parser {
         return strarry;
     }
 
-    public static double parseJSON (String str){
-        double results =0;
+    public static String parseJSON (String str){
+        Double taxRate=0.0;
         int summaryindex = str.indexOf("summary");
         str = str.substring(summaryindex);
-        while (str.contains("\"rate\":")){
-            int rateIndex = str.indexOf("\"rate\":");
+        while (str.contains("\"rate\"")){
+            int rateIndex = str.indexOf("\"rate\"");
             str = str.substring(rateIndex+8);
             int endIndex = str.indexOf(",");
             String rate = str.substring(0,endIndex);
-            results += parseDouble(rate);
+            taxRate += parseDouble(rate);
             str = str.substring(endIndex);
+        }
+        return taxRate.toString();
+    }
+
+    public static String parseJSONForTaxability (String str) {
+        String results;
+        int isTaxableIndex = str.indexOf("isItemTaxable");
+        String taxable = str.substring(isTaxableIndex + 16, isTaxableIndex + 20);
+        if (taxable.contains("ru")) {
+            results = "Yes";
+        } else {
+            results = "No";
         }
         return results;
     }
