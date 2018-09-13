@@ -33,7 +33,7 @@ import java.util.Date;
 public class CreateTransaction {
     @GetMapping("/create")
     @ResponseBody
-    public String queryByTaxCode() {
+    public String createTransaction() {
         //need to pass taxCode and address as argument.
         String builder = null;
 //        HttpSession httpSession = request.getSession();
