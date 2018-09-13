@@ -28,8 +28,8 @@ public class Parser {
         double results =0;
         int summaryindex = str.indexOf("summary");
         str = str.substring(summaryindex);
-        while (str.contains("\"rate\": ")){
-            int rateIndex = str.indexOf("\"rate\": ");
+        while (str.contains("\"rate\":")){
+            int rateIndex = str.indexOf("\"rate\":");
             str = str.substring(rateIndex+8);
             int endIndex = str.indexOf(",");
             String rate = str.substring(0,endIndex);

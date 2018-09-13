@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSONTaxCode {
-
     public static Map<String, String> parseProductCodes(String str){
         Map<String,String> productCodes= new HashMap();
         while (str.contains("taxCode")){

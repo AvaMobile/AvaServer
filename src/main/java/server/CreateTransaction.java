@@ -68,7 +68,7 @@ public class CreateTransaction {
         Date date = new Date();
         CreateTransactionModel transactionModel = new CreateTransactionModel();
         LineItemModel line = new LineItemModel();
-        line.setTaxCode("PH050730");
+        line.setTaxCode("PH404450");
         line.setDescription("HardCoded in for Now");
         BigDecimal hardcode = BigDecimal.valueOf(100);
         line.setAmount(hardcode);
