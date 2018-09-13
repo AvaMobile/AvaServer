@@ -46,7 +46,7 @@ public class CreateTransaction {
         Date date = new Date();
         CreateTransactionModel transactionModel = new CreateTransactionModel();
         LineItemModel line = new LineItemModel();
-        line.setTaxCode("PH404450");
+        line.setTaxCode(taxCode);
         line.setDescription("HardCoded in for Now");
         BigDecimal hardcode = BigDecimal.valueOf(100);
         line.setAmount(hardcode);
@@ -56,7 +56,7 @@ public class CreateTransaction {
 
         AddressesModel adModel = new AddressesModel();
         AddressLocationInfo adInfo = new AddressLocationInfo();
-        adInfo.setPostalCode("98107");
+        adInfo.setPostalCode(zipCode);
         adModel.setSingleLocation(adInfo);
         transactionModel.setDate(date);
         transactionModel.setCompanyCode("DEFAULT");
