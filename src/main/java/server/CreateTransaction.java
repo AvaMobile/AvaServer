@@ -16,23 +16,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 import parser.Parser;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
@@ -76,7 +68,7 @@ public class CreateTransaction {
         Date date = new Date();
         CreateTransactionModel transactionModel = new CreateTransactionModel();
         LineItemModel line = new LineItemModel();
-        line.setTaxCode("PH050730");
+        line.setTaxCode("PH404450");
         line.setDescription("HardCoded in for Now");
         BigDecimal hardcode = BigDecimal.valueOf(100);
         line.setAmount(hardcode);
