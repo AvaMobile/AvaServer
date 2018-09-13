@@ -59,7 +59,8 @@ public class Application {
                     .Create();
         } catch (Exception e) {
         }
-        return client.toString();
+        String ping = "ping";
+        return ping;
     }
 
 
