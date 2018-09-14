@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import parser.Parser;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,7 +35,7 @@ import java.util.Date;
 
 
 @Controller
-@SessionAttributes({"username" , "password"})
+@SessionAttributes({"username","password"})
 public class CreateTransaction {
     @GetMapping("/create")
     @ResponseBody
@@ -43,7 +44,7 @@ public class CreateTransaction {
                                                 String password) {
         //need to pass taxCode and address as argument.
         String builder = null;
-//        HttpSession httpSession = request.getSession();
+        HttpSession httpSession = httpServletRequest.getSession();
         //expanding this but not functioning at the the moment just hardcoding
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
