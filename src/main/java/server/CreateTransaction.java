@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import parser.Parser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,11 +34,13 @@ import java.util.Date;
 
 
 @Controller
+@SessionAttributes({"username" , "password"})
 public class CreateTransaction {
     @GetMapping("/create")
     @ResponseBody
     public String createTransaction(HttpServletRequest httpServletRequest, @RequestParam String taxCode,
-                                    @RequestParam String zipCode) {
+                                    @RequestParam String zipCode, @RequestParam String username, @RequestParam
+                                                String password) {
         //need to pass taxCode and address as argument.
         String builder = null;
 //        HttpSession httpSession = request.getSession();
@@ -68,7 +71,7 @@ public class CreateTransaction {
         transactionModel.setLines(lines);
         Gson gson = new Gson();
         try {
-            String userNamePass = Base64.getEncoder().encodeToString(("timbuschofficial@gmail.com:CodeFellows18")
+            String userNamePass = Base64.getEncoder().encodeToString((username + ":" + password)
                     .getBytes());
             String requestUrl = "https://rest.avatax.com/api/v2/transactions/create";
             StringEntity requestEntity = new StringEntity(gson.toJson(transactionModel), ContentType.APPLICATION_JSON);
